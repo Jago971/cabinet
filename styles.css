@@ -13,11 +13,10 @@ body {
 }
 
 .cabinet {
-container-type: size;
+  container-type: size;
   width: 15vw;
   height: 42.5vw;
   perspective: 500px;
-  border: solid 1px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +25,6 @@ container-type: size;
 .cabinet-body {
   height: 100cqh;
   width: 100cqw;
-  border: solid 2px red;
   position: relative;
   transform-style: preserve-3d;
   display: flex;
@@ -36,67 +34,89 @@ container-type: size;
 }
 
 .face {
-  background: gray;
-  border: 1px solid black;
   position: absolute;
-  opacity: 0.5;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   font-family: Arial, sans-serif;
-  font-size: 2rem;
 }
 
 .cabinet-body {
-  .top, .bottom {
+  .front {
+    background-color: lightgray;
+  }
+  .left, .right {
+    background-color: rgb(190, 190, 190);
+  }
+  .top {
+    background-color: rgb(200, 200, 200);
+  }
+
+  .top,
+  .side {
+    border-radius: 2cqw;
+  }
+
+  .top {
     height: 100cqw;
     width: 100cqw;
   }
 
   .side {
     height: 100cqh;
-    width: 100cqw
+    width: 100cqw;
   }
 
   .front {
-    opacity: 1;
-    transform: translateZ(50cqw);
+    transform: translateZ(49.5cqw);
   }
-  
-  .back {
-    transform: translateZ(-50cqw) rotateY(180deg);
-  }
-  
+
   .left {
-    transform: translateX(-50cqw) rotateY(-90deg);
+    transform: translateX(-49.5cqw) rotateY(-90deg);
   }
-  
+
   .right {
-    transform: translateX(50cqw) rotateY(90deg);
+    transform: translateX(49.5cqw) rotateY(90deg);
   }
-  
+
   .top {
     transform: translateY(-50cqh) rotateX(90deg);
-  }
-  
-  .bottom {
-    transform: translateY(50cqh) rotateX(-90deg);
   }
 }
 
 .cabinet-drawer {
-  border: solid 1px red;
   height: 29.4%;
   width: 83.33%;
   position: relative;
   container-type: size;
   transform-style: preserve-3d;
-  transform: translateZ(12.5cqw);
-  transition: transform 1s ease-in-out;
+  transform: translateZ(10cqw);
+  transition: transform 0.5s ease-in-out;
 
-  .left, .right, .back {
+  .side {
+    background-color: rgb(75, 75, 75);
+  }
+
+  .front {
+    background-color: rgb(195, 198, 200);
+    transform-style: preserve-3d;
+  }
+
+  .left,
+  .right {
     width: 100cqw;
     height: 80cqh;
+  }
+
+  .left::after,
+  .right::after {
+    content: "";
+    position: absolute;
+    height: 30%;
+    width: 100%;
+    border-top: solid 5cqw rgb(60, 60, 60);
+    border-bottom: solid 2.5cqw rgb(90, 90, 90);
   }
 
   .bottom {
@@ -114,27 +134,64 @@ container-type: size;
   }
 
   .front {
-    opacity: 1;
-    transform: translateZ(50cqw);
+    transform: translateZ(50.5cqw);
   }
-  
-  .back {
-    transform: translateZ(-50cqw) translateY(20cqh) rotateY(180deg);
-  }
-  
+
   .left {
-    transform: translateX(-50cqw) translateY(20cqh) rotateY(-90deg);
+    transform: translateX(-49.5cqw) translateY(20cqh) rotateY(-90deg);
   }
-  
+
   .right {
-    transform: translateX(50cqw) translateY(20cqh) rotateY(90deg);
+    transform: translateX(49.5cqw) translateY(20cqh) rotateY(90deg);
   }
-  
+
   .bottom {
     transform: translateY(50cqh) rotateX(-90deg);
   }
 }
 
+.shadow {
+  height: 29.4%;
+  width: 83.33%;
+  background-color: black;
+  transition: background-color 0.1s ease;
+}
+
+.name-tag {
+  height: 30%;
+  width: 70%;
+  background-color: white;
+  border: solid 2px gray;
+  border-radius: 1cqw;
+  transition: transform 0.25s ease;
+  font-size: 11cqw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .open {
   transform: translateZ(83cqw);
+}
+
+.closed > .front:hover > .name-tag {
+  transform: scale(2.5) translateZ(20cqw);
+}
+
+.handle {
+  width: 50%;
+  height: 10%;
+  background: linear-gradient(to right, 
+  #5a5a5a, /* Darker edge (left curve) */
+  #9c9c9c, /* Slightly lighter transition */
+  #d9d9d9 20%, /* Bright center in the light */
+  #d9d9d9 80%, /* Bright center in the light */
+  #9c9c9c, /* Slightly lighter transition */
+  #5a5a5a  /* Darker edge (right curve) */
+);
+  border: solid 1px black;
+  transform: translateZ(7.5cqw);
+  box-shadow: 
+  0 3cqw 3cqw rgba(0, 0, 0, 0.5), /* Subtle shadow directly underneath for depth */
+  inset 0 1cqw 2cqw white; /* Light reflection inside for metallic shine */
 }

@@ -5,12 +5,20 @@ function pointCabinet(event) {
   const percentY = (event.clientY / viewportHeight).toFixed(2);
   const cabinet = document.querySelector(".cabinet-body");
   cabinet.style.transform = `rotateX(${
-    22.5 * (2 * percentY - 1) * -1
+    22.5 * (2 * percentY - 1) * -1 - 22.5
   }deg) rotateY(${45 * (2 * percentX - 1)}deg)`;
 }
 
 function openDrawer(drawer) {
-  drawer.classList.toggle("open")
+  const shadow = drawer.querySelector(".shadow");
+  const isOpen = drawer.classList.toggle("open");
+  setTimeout(
+    () => {
+      drawer.classList.toggle("closed");
+      shadow.style.backgroundColor = "black";
+    },
+    isOpen ? 0 : 600
+  );
 }
 
 document.addEventListener("mousemove", function (event) {
